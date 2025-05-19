@@ -1,6 +1,7 @@
 import unittest
 from htmlnode import text_node_to_html_node
 from textnode import TextNode, TextType
+from split_nodes import split_nodes_delimiter
 
 
 class TestTextNode(unittest.TestCase):
@@ -30,11 +31,6 @@ class TestTextNode(unittest.TestCase):
         self.assertEqual(html_node.value, "This is a text node")
         self.assertEqual(html_node2.value, None)
         self.assertEqual(html_node3.props, {'src': 'https://www.booties.com', 'alt': 'Boots is grand'})
-
-        
-
-
-
 
 if __name__ == "__main__":
     unittest.main()
