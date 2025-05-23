@@ -27,15 +27,14 @@ def split_nodes_delimiter(old_nodes, delimiter, text_type):
 
 def split_nodes_image(old_nodes):
     for node in old_nodes:
-        temp_list = extract_markdown_images(node.text)
-        for item in temp_list:
-
-
-
-
-
-
-
+        original_text = node.text
+        print(original_text)
+        image_parts = extract_markdown_images(original_text)
+        print(image_parts)
+        image_alt = image_parts[0]
+        image_link = image_parts[1]
+        sections = original_text.split(f"![{image_alt}]({image_link})")
+        print(sections)
 
 
 node = TextNode("This is text with an ![image](https://i.imgur.com/zjjcJKZ.png) and another ![second image](https://i.imgur.com/3elNhQu.png)",TextType.TEXT,)
