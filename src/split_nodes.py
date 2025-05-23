@@ -26,16 +26,9 @@ def split_nodes_delimiter(old_nodes, delimiter, text_type):
 
 
 def split_nodes_image(old_nodes):
-    result_list = []
     for node in old_nodes:
         temp_list = extract_markdown_images(node.text)
         for item in temp_list:
-            image_alt = item[0]
-            image_link = item[1]
-            print(image_alt, image_link)
-            sections = node.text.rsplit(f"![{image_alt}]({image_link})",2)
-            print(sections) 
-
 
 
 
