@@ -25,6 +25,15 @@ def split_nodes_delimiter(old_nodes, delimiter, text_type):
     return result_list  
 
 
+#while item in list:
+#extract markdown
+#if not valid markdown add as text text_type
+#if valid markdown add to textnode
+#return list less index 0
+
+
+
+
 def split_nodes_image(old_nodes):
     for node in old_nodes:
         original_text = node.text
