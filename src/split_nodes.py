@@ -25,28 +25,46 @@ def split_nodes_delimiter(old_nodes, delimiter, text_type):
     return result_list  
 
 
-#while item in list:
-#extract markdown
-#if not valid markdown add as text text_type
-#if valid markdown add to textnode
-#return list less index 0
-
-
 
 
 def split_nodes_image(old_nodes):
-    for node in old_nodes:
-        original_text = node.text
-        print(original_text)
-        image_parts = extract_markdown_images(original_text)
-        print(image_parts)
-        image_alt = image_parts[0]
-        image_link = image_parts[1]
-        sections = original_text.split(f"![{image_alt}]({image_link})")
-        print(sections)
+    working_list= old_nodes.copy()
+    final_results = []
+    while working_list:
+        current_node = working_list.pop(0)
+        if extract_markdown_images(current_node.text) != []:
+            image = extract_markdown_images(current_node.text)
+            image_alt = image[0][0]
+            image_link = image[0][1]
+            sections = current_node.text.split(f"![{image_alt}]({image_link})", 1)
+            if sections[0] != "":
+                final_results.append(TextNode(sections[0],TextType.TEXT))
+            final_results.append(TextNode(image_alt,TextType.IMAGE,image_link))
+            if sections[1] != "":
+                working_list.insert(0,TextNode(sections[1],TextType.TEXT))
+        else:
+            final_results.append(current_node)
+    return final_results
 
 
-node = TextNode("This is text with an ![image](https://i.imgur.com/zjjcJKZ.png) and another ![second image](https://i.imgur.com/3elNhQu.png)",TextType.TEXT,)
 
-new_nodes = split_nodes_image([node])
+def split_nodes_link(old_nodes):
+    working_list= old_nodes.copy()
+    final_results = []
+    while working_list:
+        current_node = working_list.pop(0)
+        if extract_markdown_links(current_node.text) != []:
+            links = extract_markdown_links(current_node.text)
+            link_alt = links[0][0]
+            link_link = links[0][1]
+            sections = current_node.text.split(f"[{link_alt}]({link_link})", 1)
+            if sections[0] != "":
+                final_results.append(TextNode(sections[0],TextType.TEXT))
+            final_results.append(TextNode(link_alt,TextType.LINK,link_link))
+            if sections[1] != "":
+                working_list.insert(0,TextNode(sections[1],TextType.TEXT))
+        else:
+            final_results.append(current_node)
+    return final_results
+
 
