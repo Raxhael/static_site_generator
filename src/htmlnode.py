@@ -96,4 +96,4 @@ def text_node_to_html_node(text_node):
 
 sample_node = TextNode("hello world", TextType.IMAGE, "www.google.com.")
 result = text_node_to_html_node(sample_node)
-print(result.tag, result.value, result.props)
+#print(result.tag, result.value, result.props)
