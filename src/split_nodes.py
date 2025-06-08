@@ -31,6 +31,9 @@ def split_nodes_image(old_nodes):
     final_results = []
     while working_list:
         current_node = working_list.pop(0)
+        if current_node.text_type != TextType.TEXT:
+            final_results.append(current_node)
+            continue
         if extract_markdown_images(current_node.text) != []:
             image = extract_markdown_images(current_node.text)
             image_alt = image[0][0]
